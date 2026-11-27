@@ -1,0 +1,42 @@
+{
+  "$id": "account",
+  "title": "Аккаунт и подписка",
+  "$defs": {
+    "SignInRequest": {
+      "description": "Вход через Google.",
+      "type": "object",
+      "properties": {
+        "google_id_token": {"type": "string"}
+      },
+      "required": ["google_id_token"]
+    },
+    "Session": {
+      "description": "Ответ на вход: токен для запросов и текущий уровень.",
+      "type": "object",
+      "properties": {
+        "user_id": {"type": "string"},
+        "token": {"type": "string"},
+        "entitlement": {"$ref": "#/$defs/Entitlement"}
+      },
+      "required": ["user_id", "token", "entitlement"]
+    },
+    "PurchaseVerifyRequest": {
+      "description": "Чек покупки из Google Play для проверки на сервере.",
+      "type": "object",
+      "properties": {
+        "product_id": {"type": "string"},
+        "purchase_token": {"type": "string"}
+      },
+      "required": ["product_id", "purchase_token"]
+    },
+    "Entitlement": {
+      "description": "Что доступно пользователю сейчас.",
+      "type": "object",
+      "properties": {
+        "tier": {"$ref": "common.schema.json#/$defs/Tier"},
+        "pages_left": {"type": "integer", "description": "Остаток облачных страниц в периоде."}
+      },
+      "required": ["tier", "pages_left"]
+    }
+  }
+}

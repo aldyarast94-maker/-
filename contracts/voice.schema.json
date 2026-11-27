@@ -1,0 +1,27 @@
+{
+  "$id": "voice",
+  "title": "Свой голос",
+  "$defs": {
+    "VoiceCloneRequest": {
+      "description": "Запись голоса пользователя вместе с прочитанной фразой согласия.",
+      "type": "object",
+      "properties": {
+        "sample_base64": {"type": "string"},
+        "sample_mime": {"type": "string"},
+        "consent_text": {"type": "string", "description": "Фраза согласия, показанная на экране."},
+        "lang": {"$ref": "common.schema.json#/$defs/Lang"}
+      },
+      "required": ["sample_base64", "sample_mime", "consent_text", "lang"]
+    },
+    "VoiceProfile": {
+      "description": "Созданный голос пользователя.",
+      "type": "object",
+      "properties": {
+        "voice_id": {"type": "string"},
+        "created_at": {"type": "string", "description": "Время в ISO 8601."},
+        "trial_left_chapters": {"type": "integer", "description": "Сколько пробных глав осталось на Базовом."}
+      },
+      "required": ["voice_id", "created_at", "trial_left_chapters"]
+    }
+  }
+}

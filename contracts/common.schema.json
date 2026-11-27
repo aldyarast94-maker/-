@@ -1,0 +1,37 @@
+{
+  "$id": "common",
+  "title": "Общие типы",
+  "$defs": {
+    "Lang": {
+      "description": "Язык реплики. Пока два.",
+      "enum": ["ru", "en"]
+    },
+    "LineType": {
+      "description": "Тип реплики: речь, мысль, текст автора, звук, надпись на фоне.",
+      "enum": ["dialogue", "thought", "narration", "sfx", "sign"]
+    },
+    "Emotion": {
+      "description": "Эмоция, с которой читать реплику.",
+      "enum": ["neutral", "happy", "sad", "angry", "scared", "surprised", "disgusted", "tender", "sarcastic"]
+    },
+    "Manner": {
+      "description": "Манера подачи: обычно, шёпотом, криком.",
+      "enum": ["normal", "whisper", "shout"]
+    },
+    "Tier": {
+      "description": "Уровень: Базовый (на телефоне) или Профи (подписка).",
+      "enum": ["basic", "pro"]
+    },
+    "BBox": {
+      "description": "Рамка на странице в долях от ширины и высоты (0..1).",
+      "type": "object",
+      "properties": {
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "w": {"type": "number"},
+        "h": {"type": "number"}
+      },
+      "required": ["x", "y", "w", "h"]
+    }
+  }
+}

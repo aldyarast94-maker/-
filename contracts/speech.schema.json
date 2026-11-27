@@ -1,0 +1,29 @@
+{
+  "$id": "speech",
+  "title": "Синтез речи",
+  "$defs": {
+    "SpeechRequest": {
+      "description": "Запрос облачного синтеза одной реплики (Профи).",
+      "type": "object",
+      "properties": {
+        "text": {"type": "string", "description": "Уже произносимый текст после text_prep."},
+        "lang": {"$ref": "common.schema.json#/$defs/Lang"},
+        "voice_id": {"type": "string"},
+        "emotion": {"$ref": "common.schema.json#/$defs/Emotion"},
+        "manner": {"$ref": "common.schema.json#/$defs/Manner"},
+        "intensity": {"type": "number"}
+      },
+      "required": ["text", "lang", "voice_id", "emotion", "manner", "intensity"]
+    },
+    "SpeechResult": {
+      "description": "Готовый звук реплики.",
+      "type": "object",
+      "properties": {
+        "audio_base64": {"type": "string"},
+        "mime": {"type": "string"},
+        "duration_ms": {"type": "integer"}
+      },
+      "required": ["audio_base64", "mime", "duration_ms"]
+    }
+  }
+}

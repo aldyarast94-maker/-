@@ -1,0 +1,41 @@
+{
+  "$id": "script",
+  "title": "Сценарий страницы",
+  "$defs": {
+    "Line": {
+      "description": "Одна реплика на странице в порядке чтения.",
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "bbox": {"$ref": "common.schema.json#/$defs/BBox"},
+        "text": {"type": "string"},
+        "lang": {"$ref": "common.schema.json#/$defs/Lang"},
+        "type": {"$ref": "common.schema.json#/$defs/LineType"},
+        "speaker_hint": {"type": "string", "description": "Кто говорит, как это видно на странице (не стабильный id)."},
+        "emotion": {"$ref": "common.schema.json#/$defs/Emotion"},
+        "manner": {"$ref": "common.schema.json#/$defs/Manner"},
+        "intensity": {"type": "number", "description": "Сила эмоции 0..1."}
+      },
+      "required": ["id", "bbox", "text", "lang", "type", "emotion", "manner", "intensity"]
+    },
+    "PageScript": {
+      "description": "Все реплики страницы в порядке чтения.",
+      "type": "object",
+      "properties": {
+        "page_hash": {"type": "string"},
+        "lines": {"type": "array", "items": {"$ref": "#/$defs/Line"}}
+      },
+      "required": ["page_hash", "lines"]
+    },
+    "VisionRequest": {
+      "description": "Запрос облачного понимания страницы (Профи).",
+      "type": "object",
+      "properties": {
+        "page_hash": {"type": "string"},
+        "image_base64": {"type": "string"},
+        "image_mime": {"type": "string"}
+      },
+      "required": ["page_hash", "image_base64", "image_mime"]
+    }
+  }
+}
