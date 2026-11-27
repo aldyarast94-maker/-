@@ -12,3 +12,12 @@ import kotlinx.coroutines.flow.Flow
 interface PagePipeline {
     fun process(page: Page, tier: Tier): Flow<PlayableLine>
 }
+
+/** Готовый порядок обработки для сборки app/: соединяет переданные шаги. */
+fun PagePipeline(
+    script: com.npcknows.bubblecast.script.ScriptReader,
+    characters: com.npcknows.bubblecast.characters.CharacterResolver,
+    cast: com.npcknows.bubblecast.cast.Caster,
+    textPrep: com.npcknows.bubblecast.text_prep.TextPreparer,
+    tts: com.npcknows.bubblecast.tts.Synthesizer,
+): PagePipeline = com.npcknows.bubblecast.pipeline.internal.StepPipeline(script, characters, cast, textPrep, tts)

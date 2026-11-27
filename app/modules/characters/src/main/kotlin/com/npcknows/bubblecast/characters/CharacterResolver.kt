@@ -9,3 +9,6 @@ interface CharacterResolver {
     fun resolve(page: Page, line: Line): Character
     fun charactersOf(bookId: String): List<Character>
 }
+
+/** Готовый определитель персонажей для сборки app/. */
+fun CharacterResolver(): CharacterResolver = com.npcknows.bubblecast.characters.internal.HintCharacterResolver()

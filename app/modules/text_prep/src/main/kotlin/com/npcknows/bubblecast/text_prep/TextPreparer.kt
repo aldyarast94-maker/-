@@ -7,3 +7,6 @@ import com.npcknows.bubblecast.shared.SpeakableText
 interface TextPreparer {
     fun prepare(line: Line): SpeakableText
 }
+
+/** Готовый подготовитель текста для сборки app/. */
+fun TextPreparer(): TextPreparer = com.npcknows.bubblecast.text_prep.internal.DefaultTextPreparer()
