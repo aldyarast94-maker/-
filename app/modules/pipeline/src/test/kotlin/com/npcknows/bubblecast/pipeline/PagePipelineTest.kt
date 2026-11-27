@@ -45,7 +45,10 @@ class PagePipelineTest {
         )
     }
     private val spoken = mutableListOf<String>()
+    private val narrator = Voice(VoiceId("ru-f"), "ru-f", setOf(Lang.RU), Gender.FEMALE, VoiceOrigin.STANDARD)
     private val fakeTts = object : Synthesizer {
+        override fun voices() = listOf(narrator)
+
         override suspend fun synthesize(
             text: SpeakableText, voice: Voice, emotion: Emotion, manner: Manner, intensity: Double, tier: Tier,
         ): AudioClip {
@@ -53,7 +56,6 @@ class PagePipelineTest {
             return AudioClip(ByteArray(1), "audio/wav", 100)
         }
     }
-    private val narrator = Voice(VoiceId("ru-f"), "ru-f", setOf(Lang.RU), Gender.FEMALE, VoiceOrigin.STANDARD)
 
     @Test fun stepsRunInOrderAndSkipUnspeakable() = runBlocking {
         val pipeline = PagePipeline(
