@@ -8,5 +8,13 @@ interface TextPreparer {
     fun prepare(line: Line): SpeakableText
 }
 
-/** Готовый подготовитель текста для сборки app/. */
+/** Подготовитель текста без ударений (пока модели не скачаны). */
 fun TextPreparer(): TextPreparer = com.npcknows.bubblecast.text_prep.internal.DefaultTextPreparer()
+
+/** Готовый подготовитель текста для сборки app/: с ударениями и ё для русского (модель грузится один раз). */
+fun TextPreparer(models: com.npcknows.bubblecast.shared.ModelLocator): TextPreparer {
+    val stress by lazy {
+        com.npcknows.bubblecast.text_prep.internal.stress.RussianStress.open(models)
+    }
+    return com.npcknows.bubblecast.text_prep.internal.DefaultTextPreparer { text -> synchronized(stress) { stress.apply(text) } }
+}

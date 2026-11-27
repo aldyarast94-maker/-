@@ -126,6 +126,38 @@ object ModelCatalog {
         "dd22b92740314321f8ae11c5e87f8dd60d060f15dd3a632b5adf77f471f77af2", 291469, "OpenRAIL-M",
     )
 
+    // Ударения и ё (русский): ONNX-экспорт silero-stress из TigreGotico/stressonnx-models.
+    val STRESS_MODEL = ModelFile(
+        "stress/accentor.onnx",
+        "https://huggingface.co/TigreGotico/stressonnx-models/resolve/b8ba7afdb78534afa1a7f4794b98d019c3866aef/ru/accentor.onnx",
+        "58378d32e38a5a8dffb3240ec8060be99ba2c7c755b5d6a69e962bee34b88fac", 148424, "MIT (silero-stress)",
+    )
+    val STRESS_EMBEDDING = ModelFile(
+        "stress/embedding.npy",
+        "https://huggingface.co/TigreGotico/stressonnx-models/resolve/b8ba7afdb78534afa1a7f4794b98d019c3866aef/ru/embedding.npy",
+        "62283e8a8e0d8d17503c3fdb14d5c4d94206cb10b8cdb382d4c10c8809fba972", 8097600, "MIT (silero-stress)",
+    )
+    val STRESS_NGRAMS = ModelFile(
+        "stress/ngram_dict.txt.gz",
+        "https://huggingface.co/TigreGotico/stressonnx-models/resolve/b8ba7afdb78534afa1a7f4794b98d019c3866aef/ru/ngram_dict.txt.gz",
+        "5c3a5f5c683e3c2708cdba567157eb012b01b3d111674d4c1408470ca1d11bb1", 695665, "MIT (silero-stress)",
+    )
+    val STRESS_EXCEPTIONS = ModelFile(
+        "stress/exceptions.txt.gz",
+        "https://huggingface.co/TigreGotico/stressonnx-models/resolve/b8ba7afdb78534afa1a7f4794b98d019c3866aef/ru/exceptions.txt.gz",
+        "d6adf835559fd7a3b1e0c49a84ee488f5b03d4ced08122c53544aebe05f80cff", 107549, "MIT (silero-stress)",
+    )
+    val STRESS_SKIP_STRESS = ModelFile(
+        "stress/skip_stress_words.txt.gz",
+        "https://huggingface.co/TigreGotico/stressonnx-models/resolve/b8ba7afdb78534afa1a7f4794b98d019c3866aef/ru/skip_stress_words.txt.gz",
+        "e024b844b9221cfffff87bd5462af8bf2c28a9db36f1d1a680e0a609ef335040", 6621, "MIT (silero-stress)",
+    )
+    val STRESS_SKIP_YO = ModelFile(
+        "stress/skip_yo_words.txt.gz",
+        "https://huggingface.co/TigreGotico/stressonnx-models/resolve/b8ba7afdb78534afa1a7f4794b98d019c3866aef/ru/skip_yo_words.txt.gz",
+        "d40b1d3e3493fc1bd5cb405a2a3dc21f07d5acc2806f6cc5dd3e16fceea50b32", 717, "MIT (silero-stress)",
+    )
+
     val TTS_VOICES: Map<String, ModelFile> = mapOf(
         "F1" to TTS_VOICE_F1,
         "F2" to TTS_VOICE_F2,
@@ -141,5 +173,6 @@ object ModelCatalog {
 
     val ALL: List<ModelFile> = listOf(
         DETECTOR, OCR_DETECTOR, OCR_RECOGNIZER, OCR_DICTIONARY, TTS_DURATION_PREDICTOR, TTS_TEXT_ENCODER, TTS_VECTOR_ESTIMATOR, TTS_VOCODER, TTS_CONFIG, TTS_INDEXER,
+        STRESS_MODEL, STRESS_EMBEDDING, STRESS_NGRAMS, STRESS_EXCEPTIONS, STRESS_SKIP_STRESS, STRESS_SKIP_YO,
     ) + TTS_VOICES.values
 }

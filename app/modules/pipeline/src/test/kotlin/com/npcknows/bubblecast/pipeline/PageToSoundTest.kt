@@ -28,14 +28,14 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Сценарий → звук через настоящие text_prep, characters, cast и tts (Supertonic-3; нужен BUBBLECAST_MODELS).
+ * Сценарий → звук через настоящие text_prep (с ударениями), characters, cast и tts (Supertonic-3; нужен BUBBLECAST_MODELS).
  * Сценарий — то, что script распознал на тестовых страницах (см. LocalScriptReaderTest), с его ошибками регистра.
  * Звук пишется в build/page-samples/ — послушать.
  */
 class PageToSoundTest {
     private val out = File("build/page-samples").apply { mkdirs() }
 
-    @Before fun models() = TestModels.assumeAvailable(*ModelCatalog.ALL.filter { it.path.startsWith("supertonic") }.toTypedArray())
+    @Before fun models() = TestModels.assumeAvailable(*ModelCatalog.ALL.filter { it.path.startsWith("supertonic") || it.path.startsWith("stress/") }.toTypedArray())
 
     private fun line(i: Int, text: String, lang: Lang, emotion: Emotion = Emotion.NEUTRAL, manner: Manner = Manner.NORMAL) =
         Line("$i", BBox(0.0, 0.1 * i, 0.5, 0.1), text, lang, LineType.DIALOGUE, null, emotion, manner, 0.6)
@@ -60,7 +60,7 @@ class PageToSoundTest {
             override suspend fun read(page: Page, tier: Tier) = PageScript(page.hash, recognized.getValue(page.hash))
         }
         val pipeline = PagePipeline(
-            script, CharacterResolver(), Caster(tts::voices, { StandardVoices.FEMALE }, { false }), TextPreparer(), tts,
+            script, CharacterResolver(), Caster(tts::voices, { StandardVoices.FEMALE }, { false }), TextPreparer(TestModels.locator), tts,
         )
         for ((name, lines) in recognized) {
             val page = Page(name, 0, name, Layout.COMIC_LTR, PageImage(ByteArray(0), "image/png", 0, 0))
