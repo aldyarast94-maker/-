@@ -19,6 +19,11 @@ class TextPreparerTest {
 
     @Test fun capsBecomeSentenceCase() = assertEquals("Стой! Куда ты идёшь?", say("СТОЙ! КУДА ТЫ ИДЁШЬ?"))
 
+    @Test fun ocrCaseMixupIsFixed() =
+        assertEquals("Где Я? Что случилось? Не может быть!", say("ГДЕ Я? что случилось? НЕ МОЖЕТ БытЬ!"))
+
+    @Test fun mixedDotsBecomeEllipsis() = assertEquals("Сломался…", say("СЛОМАЛСЯ.…."))
+
     @Test fun normalCaseIsKept() = assertEquals("Привет, Миша.", say("Привет, Миша."))
 
     @Test fun bubbleLineBreaksAreJoined() = assertEquals("Я не могу поверить", say("Я НЕ МО-\nГУ ПО-\nВЕРИТЬ"))

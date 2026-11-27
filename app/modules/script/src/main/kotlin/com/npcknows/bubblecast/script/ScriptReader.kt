@@ -8,3 +8,9 @@ import com.npcknows.bubblecast.shared.Page
 interface ScriptReader {
     suspend fun read(page: Page, tier: Tier): PageScript
 }
+
+/** Готовый чтец страниц для сборки app/. Облачный поставщик (Профи) подключится на этапе 7. */
+fun ScriptReader(models: com.npcknows.bubblecast.shared.ModelLocator): ScriptReader =
+    com.npcknows.bubblecast.script.internal.providers.local.LocalScriptReader(
+        models, com.npcknows.bubblecast.script.internal.image.AndroidImageDecoder,
+    )

@@ -15,8 +15,13 @@ internal fun Project.lib(alias: String) = catalog.findLibrary(alias).get()
 internal val Project.bubblecastNamespace: String
     get() = if (path == ":app") "com.npcknows.bubblecast" else "com.npcknows.bubblecast.$name"
 
-/** Общие зависимости любого модуля карты: shared и корутины. */
+/** Общие зависимости любого модуля карты: shared и корутины; настройки тестов. */
 internal fun Project.addModuleDefaults() {
+    // Тесты с настоящими моделями: папка из BUBBLECAST_MODELS (без неё такие тесты пропускаются).
+    tasks.withType(org.gradle.api.tasks.testing.Test::class.java).configureEach {
+        System.getenv("BUBBLECAST_MODELS")?.let { environment("BUBBLECAST_MODELS", it) }
+        maxHeapSize = "4g"
+    }
     dependencies.add("implementation", lib("kotlinx-coroutines-core"))
     dependencies.add("testImplementation", lib("junit"))
     if (path != ":shared") {

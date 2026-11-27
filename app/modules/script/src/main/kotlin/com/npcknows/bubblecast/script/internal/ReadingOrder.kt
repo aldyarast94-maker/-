@@ -15,14 +15,19 @@ internal object ReadingOrder {
 
     fun <T> sort(items: List<T>, layout: Layout, box: (T) -> BBox): List<T> {
         if (layout == Layout.WEBTOON) return items.sortedWith(compareBy({ box(it).y }, { box(it).x }))
+        val horizontal: Comparator<T> =
+            if (layout == Layout.MANGA_RTL) compareByDescending { box(it).x + box(it).w } else compareBy { box(it).x }
+        return rows(items, box).flatMap { it.sortedWith(horizontal) }
+    }
+
+    /** Ряды сверху вниз: рамки, которые заметно перекрываются по высоте. Нужны и для склейки кусков строки. */
+    fun <T> rows(items: List<T>, box: (T) -> BBox): List<List<T>> {
         val rows = mutableListOf<MutableList<T>>()
         for (item in items.sortedBy { box(it).y }) {
             val row = rows.lastOrNull()?.takeIf { r -> r.any { sameRow(box(it), box(item)) } }
             if (row != null) row += item else rows += mutableListOf(item)
         }
-        val horizontal: Comparator<T> =
-            if (layout == Layout.MANGA_RTL) compareByDescending { box(it).x + box(it).w } else compareBy { box(it).x }
-        return rows.flatMap { it.sortedWith(horizontal) }
+        return rows
     }
 
     private fun sameRow(a: BBox, b: BBox): Boolean {

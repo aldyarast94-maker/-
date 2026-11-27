@@ -16,3 +16,10 @@ android {
 configureJvmTarget()
 addModuleDefaults()
 dependencies { "implementation"(lib("kotlinx-coroutines-android")) }
+
+// В тестах на компьютере Android-сборка ONNX Runtime не загрузится — подменяем на настольную с тем же API.
+// Нужна всем модулям: ONNX приходит и транзитивно (pipeline → tts).
+dependencies { "testImplementation"(lib("onnxruntime-desktop")) }
+configurations.matching { it.name.endsWith("UnitTestRuntimeClasspath") }.configureEach {
+    exclude(group = "com.microsoft.onnxruntime", module = "onnxruntime-android")
+}

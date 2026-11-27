@@ -1,0 +1,9 @@
+{
+ "layout": "COMIC_LTR",
+ "expected": [
+  "ПРИВЕТ! ТЫ ОПЯТЬ ОПОЗДАЛ?",
+  "ПРОСТИ, АВТОБУС СЛОМАЛСЯ...",
+  "WHERE IS THE DRAGON?",
+  "IT FLEW AWAY LAST NIGHT!"
+ ]
+}

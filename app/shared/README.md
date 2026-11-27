@@ -16,5 +16,8 @@
 | `AudioClip` | tts, pipeline, narration, audio_session |
 | `PlayableLine` | pipeline, narration, reading_session |
 | `NarrationMode` | narration, reading_session, drive_mode, settings |
+| `ModelCatalog`, `ModelFile`, `ModelLocator` | script, tts, будущая загрузка моделей |
 
 Вид: чистый Kotlin.
+
+- `src/testFixtures/` — помощники тестов всех модулей (`TestModels`: папка моделей из `BUBBLECAST_MODELS`).
