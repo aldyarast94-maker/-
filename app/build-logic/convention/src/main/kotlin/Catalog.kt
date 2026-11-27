@@ -19,7 +19,10 @@ internal val Project.bubblecastNamespace: String
 internal fun Project.addModuleDefaults() {
     dependencies.add("implementation", lib("kotlinx-coroutines-core"))
     dependencies.add("testImplementation", lib("junit"))
-    if (path != ":shared") dependencies.add("implementation", dependencies.project(mapOf("path" to ":shared")))
+    if (path != ":shared") {
+        dependencies.add("implementation", dependencies.project(mapOf("path" to ":shared")))
+        dependencies.add("testImplementation", dependencies.testFixtures(dependencies.project(mapOf("path" to ":shared"))))
+    }
 }
 
 /** Байткод под Java из libs.versions.toml (jvm), компилирует любой установленный JDK не ниже. */

@@ -1,6 +1,7 @@
 plugins {
     id("bubblecast.kotlin")
     id("bubblecast.serialization")
+    `java-test-fixtures`
 }
 
 // Типы контрактов генерируются из contracts/ (tools/gen_contracts.py) сюда.
@@ -11,3 +12,6 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.kotlinx.serialization.json)
 }
+
+// Помощники для тестов всех модулей (папка моделей и т. п.) — src/testFixtures, одно место.
+dependencies { testFixturesImplementation(libs.junit) }
